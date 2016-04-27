@@ -1,0 +1,78 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+	<h:form id="userListForm">
+		<b:panel title="Listado de usuarios">
+
+			<p:dataTable value="#{userBean.userList}" var="u" widgetVar="userListWV">
+				<p:column headerText="Apellidos" sortBy="#{u.lastname}" filterBy="#{u.lastname}" filterMatchMode="contains">
+					#{u.lastname}	
+				</p:column>
+				<p:column headerText="Nombres" sortBy="#{u.name}" filterBy="#{u.name}" filterMatchMode="contains">
+					#{u.name}
+				</p:column>
+
+				<p:column headerText="Tipo de documento" filterBy="#{u.idDocumentType}" filterMatchMode="exact">
+					<f:facet name="filter">
+						<p:selectOneMenu onchange="PF('userListWV').filter();">
+							<f:selectItem itemLabel="Seleccione uno" itemValue="#{null}" noSelectionOption="true" />
+							<f:selectItems value="#{userBean.documentTypeList}" var="dt" itemLabel="#{dt.name}" itemValue="#{dt.id}" />
+						</p:selectOneMenu>
+					</f:facet>
+					#{u.nameDocumentType}
+				</p:column>
+
+				<p:column headerText="Documento" sortBy="#{u.documentNumber}" filterBy="#{u.documentNumber}" filterMatchMode="contains">
+					#{u.documentNumber}
+				</p:column>
+				<p:column headerText="Correo electrónico" sortBy="#{u.email}" filterBy="#{u.email}" filterMatchMode="contains">
+					#{u.email}
+				</p:column>
+
+				<p:column width="30">
+					<div>
+						<p:commandLink oncomplete="redirectTo('usuario'); PF('statusDialog').hide();" onstart="PF('statusDialog').show();">
+							<i class="fa fa-pencil" />
+							<f:setPropertyActionListener value="#{u}" target="#{userBean.user}" />
+						</p:commandLink>
+					</div>
+				</p:column>
+
+				<p:column width="30">
+					<div>
+						<p:commandLink oncomplete="redirectTo('detalleUsuario'); PF('statusDialog').hide();" onstart="PF('statusDialog').show();">
+							<i class="fa fa-search" />
+							<f:setPropertyActionListener value="#{u}" target="#{userBean.user}" />
+						</p:commandLink>
+					</div>
+				</p:column>
+
+				<p:column width="30">
+					<div>
+						<p:commandLink oncomplete="PF('statusDialog').hide(); PF('dlgUserDeleteWV').show();" onstart="PF('statusDialog').show();" update=":dlgUserDelete">
+							<i class="fa fa-trash" />
+							<f:setPropertyActionListener value="#{u}" target="#{userBean.user}" />
+						</p:commandLink>
+					</div>
+				</p:column>
+			</p:dataTable>
+			<div style="text-align: center;"></div>
+
+		</b:panel>
+	</h:form>
+
+	<p:dialog id="dlgUserDelete" header="Eliminar usuario" widgetVar="dlgUserDeleteWV" modal="true" resizable="false" width="20%" style="min-width:320px;">
+		<div>
+			<p>Ha seleccionado al usuario #{userBean.user.name}</p>
+			<p>¿está seguro que desea eliminar el usuario seleccionado?</p>
+			<br />
+			<div class="ui-btn-center">
+				<p:commandButton value="Aceptar" action="#{userBean.userDelete}" onstart="PF('statusDialog').show()" oncomplete="PF('dlgUserDeleteWV').hide(); PF('statusDialog').hide();" />
+				<p:spacer width="10" />
+				<p:commandButton value="Cancelar" onclick="PF('dlgUserDeleteWV').hide();" onstart="PF('statusDialog').show()"
+					oncomplete="PF('statusDialog').hide();" />
+			</div>
+		</div>
+	</p:dialog>
+
+</f:view>

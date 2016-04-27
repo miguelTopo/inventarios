@@ -1,0 +1,40 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:mp="http://primefaces.org/ui/material" xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<h:form id="userAddForm">
+		<b:panel title="Crear Usuario">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-12 col-md-4">* Nombres: #{userBean.user.name}</div>
+					<div class="col-xs-12 col-md-4">* Apellidos: #{userBean.user.lastname}</div>
+					<div class="col-xs-12 col-md-4">
+						* Tipo de documento
+						<mp:selectOne value="#{userBean.user.idDocumentType}">
+							<f:selectItem itemLabel="Seleccione uno" itemValue="0" />
+							<f:selectItems value="#{userBean.documentTypeList}" var="dt" itemLabel="#{dt.name}" itemValue="#{dt.id}" />
+						</mp:selectOne>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-md-4">* Número de documento: #{userBean.user.documentNumber}</div>
+					<div class="col-xs-12 col-md-4">* Correo electrónico: #{userBean.user.email}</div>
+					<div class="col-xs-12 col-md-4">* Fecha de nacimiento:</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-md-4">
+						* Género:
+						<mp:selectOne value="#{userBean.user.idGender}">
+							<f:selectItem itemLabel="Seleccione uno" itemValue="0" />
+							<f:selectItems value="#{userBean.genderList}" var="g" itemValue="#{g.id}" itemLabel="#{g.name}" />
+						</mp:selectOne>
+					</div>
+				</div>
+			</div>
+
+			<div style="text-align: center;">
+				<p:commandButton value="Volver" onclick="window.history.back();"/>
+			</div>
+		</b:panel>
+	</h:form>
+</f:view>

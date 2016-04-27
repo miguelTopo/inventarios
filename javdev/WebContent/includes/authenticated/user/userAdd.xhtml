@@ -1,0 +1,103 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:mp="http://primefaces.org/ui/material" xmlns:pe="http://primefaces.org/ui/extensions">
+	<h:form id="userAddForm">
+		<b:panel title="Crear Usuario">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-12 col-md-4">
+						* Nombres:
+						<mp:input value="#{userBean.user.name}" label="* Nombres" />
+					</div>
+					<div class="col-xs-12 col-md-4">
+						* Apellidos:
+						<mp:input value="#{userBean.user.lastname}" label="* Apellidos" />
+					</div>
+					<div class="col-xs-12 col-md-4">
+						* Tipo de documento
+						<mp:selectOne value="#{userBean.user.idDocumentType}">
+							<f:selectItem itemLabel="Seleccione uno" itemValue="0" />
+							<f:selectItems value="#{userBean.documentTypeList}" var="dt" itemLabel="#{dt.name}" itemValue="#{dt.id}" />
+						</mp:selectOne>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-md-4">
+						* Número de documento:
+						<mp:input id="txt-doc-number" value="#{userBean.user.documentNumber}">
+							<p:ajax event="blur" listener="#{userBean.loadFieldExist(1)}" />
+						</mp:input>
+						<pe:keyFilter for="txt-doc-number" mask="pint" />
+						<p:outputPanel id="documentOp">
+							<p:outputPanel rendered="#{userBean.documentExist}">
+								<h:outputText value="El núumero de documento ya existe" />
+							</p:outputPanel>
+						</p:outputPanel>
+					</div>
+					<div class="col-xs-12 col-md-4">
+						* Correo electrónico:
+						<mp:input id="txt-email" value="#{userBean.user.email}">
+							<p:ajax event="blur" listener="#{userBean.loadFieldExist(2)}" />
+						</mp:input>
+						<pe:keyFilter mask="email" for="txt-email" />
+						<p:outputPanel id="emailOp">
+							<p:outputPanel rendered="#{userBean.userEmailExist}">
+								<h:outputText value="El email ya existe" />
+							</p:outputPanel>
+						</p:outputPanel>
+					</div>
+					<div class="col-xs-12 col-md-4">
+						* Fecha de nacimiento:
+						<mp:datePicker></mp:datePicker>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-md-4">
+						* Género:
+						<mp:selectOne value="#{userBean.user.idGender}">
+							<f:selectItem itemLabel="Seleccione uno" itemValue="0" />
+							<f:selectItems value="#{userBean.genderList}" var="g" itemValue="#{g.id}" itemLabel="#{g.name}" />
+						</mp:selectOne>
+					</div>
+					<div class="col-xs-12 col-md-4">
+						* Tipo de usuario:
+						<p:selectCheckboxMenu id="role-list"
+							label="#{userBean.user.idRoleList ne null and empty userBean.user.idRoleList ? userBean.labelRoleList : 'Seleccione el o los roles'}"
+							filter="true" filterMatchMode="startsWith" value="#{userBean.user.idRoleList}" widgetVar="roleListWV" style="width:100%">
+							<f:selectItems value="#{userBean.roleList}" var="r" itemValue="#{r.name}" itemLabel="#{r.name}" />
+							<p:ajax listener="#{userBean.handleRoleChange}" process="@this" oncomplete="PF('roleListWV').show();" update=":userAddForm:role-list" />
+						</p:selectCheckboxMenu>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<div style="text-align: center; background-color: red; padding: 25px;">
+							<h:outputText rendered="#{userBean.showUserAdd}"
+								value="Por favor ingrese una contraseña para el usuario. Recuerde, que sea una contraseña que recuerde facilmente, intente utilizar letras (mayúsculas y minúsculas) y números." />
+							<h:outputText rendered="#{userBean.showUserEdit}"
+								value="Si necesita modificar la contraseña por favor diligencie los dos campos. Si no requiere modificarla por favor no modifique ninguno de los campos" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-md-4">
+						<h:outputText rendered="#{userBean.showUserAdd}" value="* Contraseña:" />
+						<h:outputText rendered="#{userBean.showUserEdit}" value="Contraseña:" />
+						<p:password id="pw-input" styleClass="ui-common-input" />
+					</div>
+					<div class="col-xs-12 col-md-4">
+						<h:outputText rendered="#{userBean.showUserAdd}" value="* Confirme la contraseña:" />
+						<h:outputText rendered="#{userBean.showUserEdit}" value="Confirme la contraseña:" />
+						<p:password id="pw-retry-input" styleClass="ui-common-input" />
+					</div>
+				</div>
+			</div>
+			<div style="text-align: center;">
+				<p:commandButton value="Guardar Datos" onclick="passwordUserCrypto();" />
+				<p:remoteCommand name="saveUserAction" action="#{userBean.saveUser}" />
+			</div>
+		</b:panel>
+		<h:inputHidden id="pw-hidden" value="#{userBean.user.password}" />
+		<h:inputHidden id="pw-retry-hidden" value="#{userBean.user.retryPassword}" />
+	</h:form>
+</f:view>

@@ -1,0 +1,13 @@
+.ui-common-input {
+	width: 95%;
+}
+.row{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.ui-common-date input{
+	width: 95%;
+}
+.ui-btn-center{
+	text-align: center;
+}
