@@ -19,6 +19,7 @@ import com.javdev.core.list.controller.BeanList;
 import com.javdev.core.pojo.DocumentType;
 import com.javdev.core.pojo.Gender;
 import com.javdev.core.pojo.Role;
+import com.sun.mail.iap.Response;
 
 public abstract class BackingBean implements Serializable {
 
@@ -43,6 +44,13 @@ public abstract class BackingBean implements Serializable {
 		}
 	}
 
+	protected RequestContext getRequestContext() throws Exception {
+		try {
+			return RequestContext.getCurrentInstance();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 	/** @author MTorres 11/01/2016 9:44:26 p. m. */
 	private String getServerPath() throws Exception {
 		try {
@@ -52,7 +60,7 @@ public abstract class BackingBean implements Serializable {
 													// servidor
 			int port = sr.getServerPort();// Puerto
 			String context = sr.getContextPath();// context Project Name
-			return schema + "://" + serverName + ":" + port + "/" + context;
+			return schema + "://" + serverName + ":" + port + context;
 		} catch (Exception e) {
 			throw e;
 		}
@@ -101,8 +109,8 @@ public abstract class BackingBean implements Serializable {
 	public void redirectToIndex() throws Exception {
 		try {
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-			System.out.println("INFO: REDIRECT TO: " + getServerPath() + "/portal/inicio");
-			context.redirect(getServerPath() + "/portal/inicio");
+			System.out.println("INFO: REDIRECT TO: " + getServerPath() + "portal/inicio");
+			context.redirect(getServerPath() + "portal/inicio");
 		} catch (Exception e) {
 			throw e;
 		}

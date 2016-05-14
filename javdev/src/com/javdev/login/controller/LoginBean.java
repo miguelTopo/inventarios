@@ -63,13 +63,13 @@ public class LoginBean extends BackingBean {
 				UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 				// this is all you have to do to support 'remember me' (no config - built in!):
 				token.setRememberMe(false);
-
 				try {
 					currentUser.login(token);
 					System.out.println("User [" + currentUser.getPrincipal().toString() + "] logged in successfully.");
 					// save current username in the session, so we have access to our User model
 					currentUser.getSession().setAttribute("username", username);
-			 redirectToIndex();
+					getRequestContext().addCallbackParam("successLogin", "true");
+					getRequestContext().addCallbackParam("mainView", "../portal/inicio");
 				} catch (UnknownAccountException uae) {
 					System.out.println("There is no user with username of " + token.getPrincipal());
 					

@@ -8,7 +8,7 @@ import javax.faces.bean.ViewScoped;
 
 import com.javdev.core.controller.BackingBean;
 import com.javdev.core.controller.ValidationMessage;
-import com.javdev.core.pojo.JavDevUser;
+import com.javdev.core.pojo.SystemUser;
 import com.javdev.core.pojo.Role;
 import com.javdev.core.realm.model.JavDevToken;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
@@ -39,18 +39,18 @@ public class UserBean extends BackingBean {
 	@Getter @Setter private List<String> roleUserList;
 
 	// User Object List
-	@Getter @Setter private List<JavDevUser> userList;
+	@Getter @Setter private List<SystemUser> userList;
 
 
 	// User Object
-	@Getter @Setter private JavDevUser user;
+	@Getter @Setter private SystemUser user;
 
 	private UserController controller;
 
 	public UserBean() throws Exception {
 		try {
 			this.controller = new UserController();
-			this.user = new JavDevUser();
+			this.user = new SystemUser();
 			init();
 		} catch (Exception e) {
 			throw e;
@@ -129,7 +129,7 @@ public class UserBean extends BackingBean {
 					// Case document number
 					case 1:
 						if (this.user.getDocumentNumber() != null && !this.user.getDocumentNumber().trim().isEmpty())
-							this.documentExist = this.controller.loadFieldExist(JavDevUser.class.getSimpleName(), "documentNumber",
+							this.documentExist = this.controller.loadFieldExist(SystemUser.class.getSimpleName(), "documentNumber",
 								this.user.getDocumentNumber().trim());
 					break;
 					// Case email
@@ -155,7 +155,7 @@ public class UserBean extends BackingBean {
 				if (this.controller.userDelete(this.user, getCurrentUser())) {
 					this.userList.remove(user);
 					user = null;
-					user = new JavDevUser();
+					user = new SystemUser();
 					addInfoMessage("Eliminar Usuario", "El usuario fue eliminado correctamente");
 					execute("PF('dlgDeleteUserWV').hide()");
 				}

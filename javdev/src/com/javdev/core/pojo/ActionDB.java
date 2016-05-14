@@ -1,4 +1,4 @@
-package com.javdev.core.mail.model;
+package com.javdev.core.pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,18 +12,16 @@ import org.hibernate.annotations.GenericGenerator;
 import com.javdev.core.model.AParameter;
 import com.javdev.core.system.model.SystemController;
 
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity
-@Table(name = "EmailTemplate", schema = "javdev")
-public class EmailTemplate extends AParameter {
+@Table(name = "ActionDB", schema = "javdev")
+public class ActionDB extends AParameter {
 
-	@Getter @Setter @Column(name = "subject", nullable = false) private String subject;
-	@Getter @Setter @Column(name = "bodyTemplate", nullable = false) private String bodyTemplate;
+	public ActionDB() throws Exception {
+		try {
 
-	public EmailTemplate() {
-
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	@Id
@@ -33,7 +31,7 @@ public class EmailTemplate extends AParameter {
 	public Long getId() {
 		return this.id;
 	}
-
+	
 	public void setId(Long id) {
 		this.id = id;
 
@@ -66,4 +64,6 @@ public class EmailTemplate extends AParameter {
 	public void setSystemController(SystemController systemController) {
 		this.systemController = systemController;
 	}
+
+
 }

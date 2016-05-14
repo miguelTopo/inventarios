@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.hibernate.Query;
 
-import com.javdev.core.api.IJavDevState;
-import com.javdev.core.connection.dao.ConfigHibernateDAO;
+import com.javdev.core.api.IState;
+import com.javdev.core.connection.model.ConfigHibernateDAO;
+
+
 
 public class GenderDAO extends ConfigHibernateDAO {
 
@@ -20,7 +22,7 @@ public class GenderDAO extends ConfigHibernateDAO {
 		try {
 			hql.append(" from Gender g WHERE g.state = :activeState ");
 			qo = getSession().createQuery(hql.toString());
-			qo.setParameter("activeState", IJavDevState.ACTIVE);
+			qo.setParameter("activeState", IState.ACTIVE);
 			return qo.list();
 		} catch (Exception e) {
 			throw e;

@@ -17,8 +17,10 @@
 		<mapping class="com.javdev.core.pojo.DocumentType" />
 		<mapping class="com.javdev.core.pojo.Gender" />
 		<mapping class="com.javdev.core.realm.model.JavDevToken" />
-		<mapping class="com.javdev.core.pojo.JavDevUser" />
-		<mapping class="com.javdev.core.pojo.JavDevUserRole" />
+		<mapping class="com.javdev.core.pojo.SystemUser" />
+		<mapping class="com.javdev.core.pojo.UserRole" />
 		<mapping class="com.javdev.core.pojo.Role" />
+		<mapping class="com.javdev.core.pojo.ActionDB" />
+		
 	</session-factory>
 </hibernate-configuration>

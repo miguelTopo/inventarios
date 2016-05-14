@@ -2,7 +2,10 @@ package com.javdev.core.model;
 
 import java.io.Serializable;
 
-import com.javdev.core.api.IJavDevState;
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
+import com.javdev.core.api.IState;
+import com.javdev.core.system.model.SystemController;
 import com.javdev.core.util.DateUtil;
 
 public abstract class AParameter implements Serializable {
@@ -16,17 +19,7 @@ public abstract class AParameter implements Serializable {
 
 	protected String name;
 
-	protected String dateInsert;
-
-	protected String hourInsert;
-
-	protected String dateUpdate;
-
-	protected String hourUpdate;
-
-	protected String userInsert;
-
-	protected String userUpdate;
+	protected SystemController systemController;
 
 	protected Long state;
 
@@ -36,50 +29,30 @@ public abstract class AParameter implements Serializable {
 
 	public abstract String getName();
 
+
+
 	public abstract void setName(String name);
-
-	public abstract String getDateInsert();
-
-	public abstract void setDateInsert(String dateInsert);
-
-	public abstract String getHourInsert();
-
-	public abstract void setHourInsert(String hourInsert);
-
-	public abstract String getDateUpdate();
-
-	public abstract void setDateUpdate(String dateUpdate);
-
-	public abstract String getHourUpdate();
-
-	public abstract void setHourUpdate(String hourUpdate);
-
-	public abstract String getUserInsert();
-
-	public abstract void setUserInsert(String userInsert);
-
-	public abstract String getUserUpdate();
-
-	public abstract void setUserUpdate(String userUpdate);
 
 	public abstract Long getState();
 
 	public abstract void setState(Long state);
 
+	public abstract SystemController getSystemController();
 
-	/** @author MTorres 7/01/2016 6:15:30 p. m. **/
-	public void initialize(boolean isNew) throws Exception {
+	public abstract void setSystemController(SystemController systemController);
+
+	/** @author MTorres 11/05/2016 10:21:37 p. m. */
+	public void initController(Class<?> sysClass, Long idActionDB, Long idTable, String user) throws Exception {
 		try {
-			if (isNew) {
-				this.dateInsert = DateUtil.formatDate(DateUtil.getCurrentDate(), DateUtil.YYYY_MM_DD);
-				this.hourInsert = DateUtil.formatDate(DateUtil.getCurrentDate(), DateUtil.HH24_MM_SS);
-			} else {
-				this.dateUpdate = DateUtil.formatDate(DateUtil.getCurrentDate(), DateUtil.YYYY_MM_DD);
-				this.hourUpdate = DateUtil.formatDate(DateUtil.getCurrentDate(), DateUtil.HH24_MM_SS);
-			}
-			this.state = IJavDevState.ACTIVE;
+			this.systemController.setIdActionDB(idActionDB);
+			this.systemController.setDateInsert(DateUtil.getCurrentStringDate());
+			this.systemController.setHourInsert(DateUtil.getCurrentStringHour());
+			this.systemController.setIdTable(idTable);
+			this.systemController.setUserPerform(user);
+			this.systemController.setTableName(sysClass.getClass().getSimpleName());
 		} catch (Exception e) {
 			throw e;
 		}
 	}
+
 }

@@ -16,13 +16,14 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.javdev.core.model.AParameter;
 import com.javdev.core.realm.model.JavDevToken;
+import com.javdev.core.system.model.SystemController;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "JavDevUser", schema = "javdev")
-public class JavDevUser extends AParameter {
+@Table(name = "User", schema = "javdev")
+public class SystemUser extends AParameter {
 
 	@Getter @Setter @Column(name = "idDocumentType", nullable = false) private Long idDocumentType;
 	@Getter @Setter @Column(name = "idGender", nullable = false) private Long idGender;
@@ -38,7 +39,7 @@ public class JavDevUser extends AParameter {
 	private transient List<String> idRoleList;
 	private transient Date birthdayDate;
 
-	public JavDevUser() {
+	public SystemUser() {
 		try {
 
 		} catch (Exception e) {
@@ -67,60 +68,6 @@ public class JavDevUser extends AParameter {
 	public void setName(String name) {
 		this.name = name;
 
-	}
-
-	@Column(name = "dateInsert", nullable = false)
-	public String getDateInsert() {
-		return this.dateInsert;
-	}
-
-	public void setDateInsert(String dateInsert) {
-		this.dateInsert = dateInsert;
-	}
-
-	@Column(name = "hourInsert", nullable = false)
-	public String getHourInsert() {
-		return this.hourInsert;
-	}
-
-	public void setHourInsert(String hourInsert) {
-		this.hourInsert = hourInsert;
-	}
-
-	@Column(name = "dateUpdate")
-	public String getDateUpdate() {
-		return this.dateUpdate;
-	}
-
-	public void setDateUpdate(String dateUpdate) {
-		this.dateUpdate = dateUpdate;
-	}
-
-	@Column(name = "hourUpdate")
-	public String getHourUpdate() {
-		return this.hourUpdate;
-	}
-
-	public void setHourUpdate(String hourUpdate) {
-		this.hourUpdate = hourUpdate;
-	}
-
-	@Column(name = "userInsert", nullable = false)
-	public String getUserInsert() {
-		return this.userInsert;
-	}
-
-	public void setUserInsert(String userInsert) {
-		this.userInsert = userInsert;
-	}
-
-	@Column(name = "userUpdate")
-	public String getUserUpdate() {
-		return this.userUpdate;
-	}
-
-	public void setUserUpdate(String userUpdate) {
-		this.userUpdate = userUpdate;
 	}
 
 	@Column(name = "state", nullable = false)
@@ -196,6 +143,15 @@ public class JavDevUser extends AParameter {
 
 	public void setIdRoleList(List<String> idRoleList) {
 		this.idRoleList = idRoleList;
+	}
+	
+	@Transient
+	public SystemController getSystemController() {
+		return this.systemController;
+	}
+
+	public void setSystemController(SystemController systemController) {
+		this.systemController = systemController;
 	}
 
 }

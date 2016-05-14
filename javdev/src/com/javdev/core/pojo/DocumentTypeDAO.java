@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.hibernate.Query;
 
-import com.javdev.core.api.IJavDevState;
-import com.javdev.core.connection.dao.ConfigHibernateDAO;
+import com.javdev.core.api.IState;
+import com.javdev.core.connection.model.ConfigHibernateDAO;
 
 public class DocumentTypeDAO extends ConfigHibernateDAO {
 
@@ -20,7 +20,7 @@ public class DocumentTypeDAO extends ConfigHibernateDAO {
 		try {
 			hql.append(" from DocumentType dt WHERE dt.state = :activeState ");
 			qo = getSession().createQuery(hql.toString());
-			qo.setParameter("activeState", IJavDevState.ACTIVE);
+			qo.setParameter("activeState", IState.ACTIVE);
 			return qo.list();
 		} catch (Exception e) {
 			throw e;

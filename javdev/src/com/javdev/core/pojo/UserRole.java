@@ -15,18 +15,18 @@ import lombok.Setter;
 
 @Entity
 @Table(schema = "javdev", name = "JavDevUserRole")
-public class JavDevUserRole implements Serializable {
+public class UserRole implements Serializable {
 
 	@Getter @Setter @Id @GenericGenerator(name = "keyGenerator",
 		strategy = "increment") @GeneratedValue(generator = "keyGenerator") @Column private Long id;
 	@Getter @Setter @Column private String roleName;
 	@Getter @Setter @Column private String email;
 
-	public JavDevUserRole() {
+	public UserRole() {
 
 	}
 
-	public JavDevUserRole(Long id, String roleName, String email) {
+	public UserRole(Long id, String roleName, String email) {
 		this.id = id;
 		this.roleName = roleName;
 		this.email = email;

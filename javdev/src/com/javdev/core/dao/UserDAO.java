@@ -4,9 +4,9 @@ package com.javdev.core.dao;
 import org.hibernate.Query;
 import org.hibernate.transform.Transformers;
 
-import com.javdev.core.api.IJavDevState;
-import com.javdev.core.connection.dao.ConfigHibernateDAO;
-import com.javdev.core.pojo.JavDevUser;
+import com.javdev.core.api.IState;
+import com.javdev.core.connection.model.ConfigHibernateDAO;
+import com.javdev.core.pojo.SystemUser;
 import com.javdev.core.realm.model.JavDevToken;
 import com.javdev.core.util.DateUtil;
 
@@ -39,7 +39,7 @@ public class UserDAO extends ConfigHibernateDAO {
 	}
 
 	/** @author MTorres 11/01/2016 10:21:39 p. m. */
-	public boolean userDelete(JavDevUser user, String userChange) throws Exception {
+	public boolean userDelete(SystemUser user, String userChange) throws Exception {
 		StringBuilder hql = new StringBuilder();
 		Query qo = null;
 		try {
@@ -51,7 +51,7 @@ public class UserDAO extends ConfigHibernateDAO {
 			hql.append(" WHERE jdu.id = :idJavDevUser ");
 
 			qo = getSession().createQuery(hql.toString());
-			qo.setParameter("invalidState", IJavDevState.INACTIVE);
+			qo.setParameter("invalidState", IState.INACTIVE);
 			qo.setParameter("userChange", userChange);
 			qo.setParameter("dateChange", DateUtil.getCurrentStringDate());
 			qo.setParameter("hourChange", DateUtil.getCurrentStringHour());

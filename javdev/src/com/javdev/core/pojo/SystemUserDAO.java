@@ -5,14 +5,14 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.transform.Transformers;
 
-import com.javdev.core.api.IJavDevState;
-import com.javdev.core.connection.dao.ConfigHibernateDAO;
+import com.javdev.core.api.IState;
+import com.javdev.core.connection.model.ConfigHibernateDAO;
 
-public class JavDevUserDAO extends ConfigHibernateDAO {
+public class SystemUserDAO extends ConfigHibernateDAO {
 
-	public JavDevUserDAO() {}
+	public SystemUserDAO() {}
 
-	public List<JavDevUser> loadUserList() throws Exception{
+	public List<SystemUser> loadUserList() throws Exception{
 		StringBuilder hql = new StringBuilder();
 		Query qo = null;
 		try {
@@ -32,8 +32,8 @@ public class JavDevUserDAO extends ConfigHibernateDAO {
 			hql.append(" AND jdt.idJavDevUser=  jdu.id ");
 			hql.append(" AND jdu.state = :state ");
 
-			qo = getSession().createQuery(hql.toString()).setResultTransformer(Transformers.aliasToBean(JavDevUser.class));
-			qo.setParameter("state", IJavDevState.ACTIVE);
+			qo = getSession().createQuery(hql.toString()).setResultTransformer(Transformers.aliasToBean(SystemUser.class));
+			qo.setParameter("state", IState.ACTIVE);
 			return qo.list();
 		} catch (Exception e) {
 			throw e;

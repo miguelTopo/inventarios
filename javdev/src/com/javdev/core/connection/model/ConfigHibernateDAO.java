@@ -1,4 +1,4 @@
-package com.javdev.core.connection.dao;
+package com.javdev.core.connection.model;
 
 import org.hibernate.Query;
 import org.hibernate.Session;

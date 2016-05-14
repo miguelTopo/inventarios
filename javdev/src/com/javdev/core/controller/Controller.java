@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.transaction.Transaction;
 
-import com.javdev.core.connection.dao.ConfigHibernateDAO;
+import com.javdev.core.connection.model.ConfigHibernateDAO;
 import com.javdev.core.dao.UserDAO;
 import com.javdev.core.pojo.DocumentType;
 import com.javdev.core.pojo.DocumentTypeDAO;
@@ -14,7 +14,7 @@ import com.javdev.core.pojo.GenderDAO;
 import com.javdev.core.pojo.Role;
 import com.javdev.core.pojo.RoleDAO;
 
-public class Controller implements Serializable {
+public class Controller extends ConfigHibernateDAO{
 
 	/**
 	 * 

@@ -2,14 +2,14 @@ package com.javdev.core.user.controller;
 
 import java.util.List;
 
+
 import org.hibernate.Transaction;
 
 import com.javdev.core.connection.util.JavDevPasswordToken;
 import com.javdev.core.controller.Controller;
 import com.javdev.core.controller.ValidationMessage;
 import com.javdev.core.dao.UserDAO;
-import com.javdev.core.pojo.JavDevUser;
-import com.javdev.core.pojo.JavDevUserDAO;
+import com.javdev.core.pojo.SystemUser;
 import com.javdev.core.security.util.PasswordUtil;
 import com.javdev.core.util.DateUtil;
 import com.javdev.core.util.ValidatorUtil;
@@ -17,7 +17,7 @@ import com.javdev.core.util.ValidatorUtil;
 public class UserController extends Controller {
 
 	/** @author MTorres 6/01/2016 10:09:34 p. m. */
-	public ValidationMessage validSaveUser(JavDevUser user) throws Exception {
+	public ValidationMessage validSaveUser(SystemUser user) throws Exception {
 		try {
 			if (user == null)
 				return addWarnMessage("Crear usuario", "Por favor diligencie el formulario.");
@@ -54,7 +54,7 @@ public class UserController extends Controller {
 	}
 
 	/** @author MTorres 7/01/2016 11:06:41 a. m. */
-	public boolean saveUser(JavDevUser user) throws Exception {
+	public boolean saveUser(SystemUser user) throws Exception {
 		UserDAO dao = new UserDAO();
 		Transaction tx = dao.getSession().beginTransaction();
 		try {
@@ -66,11 +66,11 @@ public class UserController extends Controller {
 			user.getToken().setEmail(user.getEmail());
 
 			// Save User
-			user.initialize(user.getId() == null || user.getId().equals(0L));
+//			user.initialize(user.getId() == null || user.getId().equals(0L));
 			dao.getSession().save(user);
 
 			// Save Token
-			user.getToken().initialize(user.getToken().getId() == null || user.getToken().getId().equals(0L));
+//			user.getToken().initialize(user.getToken().getId() == null || user.getToken().getId().equals(0L));
 			user.getToken().setIdJavDevUser(user.getId());
 			dao.getSession().save(user.getToken());
 
@@ -88,10 +88,11 @@ public class UserController extends Controller {
 		}
 	}
 
-	public List<JavDevUser> loadUserList() throws Exception {
-		JavDevUserDAO dao = new JavDevUserDAO();
+	public List<SystemUser> loadUserList() throws Exception {
+		UserDAO dao = new UserDAO();
 		try {
-			return dao.loadUserList();
+			//return dao.loadUserList();
+			return null;
 		} catch (Exception e) {
 			dao.getSession().cancelQuery();
 			throw e;
@@ -102,7 +103,7 @@ public class UserController extends Controller {
 	}
 
 	/** @author MTorres 11/01/2016 10:19:57 p. m. */
-	public boolean userDelete(JavDevUser user, String userChange) throws Exception {
+	public boolean userDelete(SystemUser user, String userChange) throws Exception {
 		UserDAO dao = new UserDAO();
 		Transaction tx = dao.getSession().beginTransaction();
 		try {

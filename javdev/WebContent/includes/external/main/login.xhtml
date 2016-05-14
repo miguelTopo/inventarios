@@ -2,7 +2,7 @@
 	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
 
 	<h:form id="loginForm">
-		<p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true"/>
+		<p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true" />
 
 		<div style="position: absolute; top: 50%; left: 50%; width: 400px; margin-left: -200px; margin-top: -150px; padding: 5px;">
 			<b:panel title="Ingreso al sistema">
@@ -25,7 +25,7 @@
 					</b:column>
 				</b:row>
 				<div style="text-align: center;">
-					<b:commandButton value="Ingresar" onclick="passwordCrypto();" look="primary" />
+					<b:commandButton id="btn-sign-in" value="Ingresar" onclick="passwordCrypto();" look="primary" />
 				</div>
 			</b:panel>
 			<h:inputHidden id="pw-hidden" value="#{loginBean.password}" />
@@ -33,5 +33,16 @@
 		</div>
 	</h:form>
 
-
+	<script type="text/javascript">
+		//<![CDATA[
+		function validateSuccesLogin(xhr, status, args) {
+			alert("ingresando"+ args.successLogin);
+			if (args.successLogin) {
+				setTimeout(function() {
+					window.location = args.mainView;
+				}, 500);
+			}
+		}
+		//]]>
+	</script>
 </f:view>
