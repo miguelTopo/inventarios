@@ -18,7 +18,7 @@ import lombok.Setter;
 @Table(name = "JavDevToken", schema = "javdev")
 public class JavDevToken extends AParameter {
 
-	@Getter @Setter @Column private Long idJavDevUser;
+	@Getter @Setter @Column private Long idSystemUser;
 	@Getter @Setter @Column private String username;
 	@Getter @Setter @Column private String email;
 	@Getter @Setter @Column private String hashPassword;

@@ -11,6 +11,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 
 import com.javdev.core.controller.BackingBean;
+import com.javdev.core.session.model.CurrentSession;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
@@ -27,12 +28,15 @@ public class LoginBean extends BackingBean {
 
 	@Getter @Setter private String username;
 	@Getter @Setter private String password;
+	
+	private LoginController controller;
 
 	public LoginBean() throws Exception{
 		try {
 			// Factory<SecurityManager> factory = new IniSecurityManagerFactory();
 			// SecurityManager securityManager = factory.getInstance();
 			// SecurityUtils.setSecurityManager(securityManager);
+			this.controller = new LoginController();
 		} catch (Exception e) {
 			throw e;
 		}
@@ -68,7 +72,10 @@ public class LoginBean extends BackingBean {
 					System.out.println("User [" + currentUser.getPrincipal().toString() + "] logged in successfully.");
 					// save current username in the session, so we have access to our User model
 					currentUser.getSession().setAttribute("username", username);
-					getRequestContext().addCallbackParam("successLogin", "true");
+					CurrentSession currentSession = this.controller.loadUser(username);
+					currentSession.setEmail(username);
+					currentUser.getSession().setAttribute("currentSession", currentSession);
+					getRequestContext().addCallbackParam("successLogin", true);
 					getRequestContext().addCallbackParam("mainView", "../portal/inicio");
 				} catch (UnknownAccountException uae) {
 					System.out.println("There is no user with username of " + token.getPrincipal());

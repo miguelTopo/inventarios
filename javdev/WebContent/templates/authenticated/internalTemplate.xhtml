@@ -1,23 +1,17 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<script
-		src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
-	<link rel="stylesheet"
-		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="../resources/css/layout.css"
-		type="text/css" />
-	<link rel="stylesheet"
-		href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="../resources/css/menu.css" type="text/css" />
+	<link rel="stylesheet" href="../resources/css/layout.css" type="text/css" />
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 </h:head>
 <h:body>
-	<p:growl id="globalGrowl" life="5000" showDetail="true"
-		showSummary="true" globalOnly="true" autoUpdate="true" />
+<div id="main">
+	<p:growl id="globalGrowl" life="5000" showDetail="true" showSummary="true" globalOnly="true" autoUpdate="true" />
 	<ui:insert name="header">
 		<ui:include src="/templates/authenticated/commonHeader.xhtml" />
 	</ui:insert>
@@ -27,17 +21,11 @@
 	<ui:insert name="footer">
 		<ui:include src="/templates/authenticated/commonFooter.xhtml" />
 	</ui:insert>
-
-	<h:form>
-		<p:commandButton value="Aqui mostrar" action="#{userBean.showMessage}"
-			onstart="PF('statusDialog').show()"
-			oncomplete="PF('statusDialog').hide();" />
-	</h:form>
-
+</div>
 </h:body>
-<p:dialog widgetVar="statusDialog" closable="false" resizable="false"
-	modal="true" header="Procesando" responsive="true" draggable="false">
+<p:dialog widgetVar="statusDialog" closable="false" resizable="false" modal="true" header="Procesando" responsive="true" draggable="false">
 		estamos en procesando, tenga paciencia
 	</p:dialog>
+<script src="../resources/js/commons.js"></script>
 <script src="../resources/js/javDevFunction.js"></script>
 </html>

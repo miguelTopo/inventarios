@@ -71,7 +71,7 @@ public class UserController extends Controller {
 
 			// Save Token
 //			user.getToken().initialize(user.getToken().getId() == null || user.getToken().getId().equals(0L));
-			user.getToken().setIdJavDevUser(user.getId());
+			user.getToken().setIdSystemUser(user.getId());
 			dao.getSession().save(user.getToken());
 
 			tx.commit();

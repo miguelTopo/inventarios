@@ -1,13 +1,30 @@
+body, html {
+	font-family: Arial;
+	font-size: 9pt;
+	color: #EFF8FF;
+	background-color: #FFFFFF;
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 0;
+	margin-botton: 0;
+	border-top-width: 0;
+	padding-top: 0;
+	padding-left: 0;
+	border-style: none;
+}
 .ui-common-input {
 	width: 95%;
 }
-.row{
+
+.row {
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
-.ui-common-date input{
+
+.ui-common-date input {
 	width: 95%;
 }
-.ui-btn-center{
+
+.ui-btn-center {
 	text-align: center;
 }

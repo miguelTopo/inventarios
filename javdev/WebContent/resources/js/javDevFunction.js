@@ -16,26 +16,19 @@ function passwordUserCrypto() {
 
 function passwordCrypto(){
 	var idForm = "input_loginForm";
-	var pwInput = document.getElementById("input_loginForm:pw-input").value;
+	var pwInput = document.getElementById("loginForm:pw-input").value;
 	console.log(pwInput);
 	var hash = CryptoJS.MD5(pwInput);
 	document.getElementById("loginForm:pw-hidden").value = hash;
 	hash = null; 
-	tryUserLogin();
-	
-	PrimeFaces.ab({
-		formId : idForm,
-		partialSubmit : true,
-		source : idForm + ':btn-sign-in',
-		process : idForm,
-//		update : 'loginForm:growl',
-		oncomplete : function(xhr, status, args) {
-			validateSuccesLogin(xhr, status, args);
-		}
-	});
-	return false;
 }
 
+function handleComplete(xhr, status, args){
+	var isValid = args.successLogin; 
+	if (isValid) {
+		setTimeout(redirectTo(args.mainView), 500);
+	}
+}
 
 function redirectTo(urlRequest){
 	window.location = urlRequest;

@@ -1,0 +1,25 @@
+{
+  "name": "helloWorld",
+  "authors": [
+    "MTorres <migueltrock@gmail.com>"
+  ],
+  "description": "helloWorld",
+  "main": "index.html",
+  "keywords": [
+    "hello",
+    "world"
+  ],
+  "license": "MIT",
+  "homepage": "index.html",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0"
+  }
+}

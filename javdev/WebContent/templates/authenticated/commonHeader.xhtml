@@ -1,19 +1,22 @@
 <f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html" xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 	<ui:composition>
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12 col-md-12" style="background-color: orange">
-					<h1>este es mi Titulo por defecto</h1>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12 col-md-12">
-					<h:form id="logoutForm">
-						<p:commandButton value="Logout" action="#{loginBean.logout}" />
-					</h:form>
-				</div>
-			</div>
+		<div id="mySidenav" class="sidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">x</a> <a href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+				href="#">Contact</a>
 		</div>
+		<ul class="topnav">
+			<li>El nombre de mi empresa aqui</li>
+			<li><a href="#home">Home</a></li>
+			<li><a href="#news">News</a></li>
+			<li><a href="#contact">Contact</a></li>
+			<li><a href="#about">About</a></li>
+			<li><h:form id="logoutForm">
+					<p:commandLink action="#{loginBean.logout}">
+						<i class="fa fa-sign-out" aria-hidden="true" />
+					</p:commandLink>
+				</h:form></li>
+			<li class="icon"><a id="diplayMenu">&#9776;</a></li>
+		</ul>
 	</ui:composition>
 </f:view>

@@ -17,32 +17,14 @@
 				</b:row>
 				<b:row>
 					<b:column col-xs="12">
-						<b:inputSecret id="pw-input">
-							<f:facet name="append">
-								<b:iconAwesome name="key" />
-							</f:facet>
-						</b:inputSecret>
+						<p:password id="pw-input" onblur="passwordCrypto();"/>
 					</b:column>
 				</b:row>
 				<div style="text-align: center;">
-					<b:commandButton id="btn-sign-in" value="Ingresar" onclick="passwordCrypto();" look="primary" />
+					<p:commandButton id="btn-sign-in" value="Ingresar" onclick="" look="primary" actionListener="#{loginBean.tryLogin}" oncomplete="handleComplete(xhr, status, args)"/>
 				</div>
 			</b:panel>
 			<h:inputHidden id="pw-hidden" value="#{loginBean.password}" />
-			<p:remoteCommand name="tryUserLogin" action="#{loginBean.tryLogin}" />
 		</div>
 	</h:form>
-
-	<script type="text/javascript">
-		//<![CDATA[
-		function validateSuccesLogin(xhr, status, args) {
-			alert("ingresando"+ args.successLogin);
-			if (args.successLogin) {
-				setTimeout(function() {
-					window.location = args.mainView;
-				}, 500);
-			}
-		}
-		//]]>
-	</script>
 </f:view>

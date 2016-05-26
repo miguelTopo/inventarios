@@ -22,7 +22,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "User", schema = "javdev")
+@Table(name = "SystemUser", schema = "javdev")
 public class SystemUser extends AParameter {
 
 	@Getter @Setter @Column(name = "idDocumentType", nullable = false) private Long idDocumentType;

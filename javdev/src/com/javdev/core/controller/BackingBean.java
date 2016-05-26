@@ -19,17 +19,37 @@ import com.javdev.core.list.controller.BeanList;
 import com.javdev.core.pojo.DocumentType;
 import com.javdev.core.pojo.Gender;
 import com.javdev.core.pojo.Role;
+import com.javdev.core.session.model.CurrentSession;
+import com.ocpsoft.pretty.faces.config.rewrite.Redirect;
 import com.sun.mail.iap.Response;
 
+import lombok.Getter;
+
 public abstract class BackingBean implements Serializable {
+
+	@Getter private CurrentSession currentSession;
 
 	public BackingBean() {
 		try {
 			Factory<SecurityManager> factory = new IniSecurityManagerFactory();
 			SecurityManager securityManager = factory.getInstance();
 			SecurityUtils.setSecurityManager(securityManager);
+			this.currentSession = null;
+			if (!validUserSession())
+				redirectToLogin();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	/** @author MTorres 23/05/2016 11:19:27 p. m. */
+	private boolean validUserSession() throws Exception {
+		try {
+			Subject currentUser = SecurityUtils.getSubject();
+			this.currentSession = (CurrentSession) currentUser.getSession().getAttribute("currentSession");
+			return this.currentSession == null ? false : true;
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 
@@ -51,6 +71,7 @@ public abstract class BackingBean implements Serializable {
 			throw e;
 		}
 	}
+
 	/** @author MTorres 11/01/2016 9:44:26 p. m. */
 	private String getServerPath() throws Exception {
 		try {
@@ -89,15 +110,6 @@ public abstract class BackingBean implements Serializable {
 
 	/** @author MTorres 11/01/2016 10:17:29 p. m. */
 	public String getCurrentUser() throws Exception {
-		try {
-			return "admin";
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-	/** @author MTorres 11/01/2016 10:17:29 p. m. */
-	public String getCurrentSession() throws Exception {
 		try {
 			return "admin";
 		} catch (Exception e) {
